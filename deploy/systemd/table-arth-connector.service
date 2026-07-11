@@ -1,0 +1,31 @@
+[Unit]
+Description=TableArth Connector Agent
+Documentation=https://github.com/tablearth/table-arth-connector
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tac
+Group=tac
+ExecStart=/usr/local/bin/tac-agent -config /etc/table-arth-connector/config.yaml
+Restart=always
+RestartSec=5
+
+# The durable credential is written here (set credentials_path accordingly).
+StateDirectory=table-arth-connector
+StateDirectoryMode=0700
+
+# Hardening — the agent only needs OUTBOUND network + read of its config.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+ReadWritePaths=/var/lib/table-arth-connector
+
+[Install]
+WantedBy=multi-user.target

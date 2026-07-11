@@ -1,0 +1,55 @@
+# Multi-instance demo: MongoDB registry + TWO control-plane instances behind an
+# nginx load balancer. Proves horizontal scaling and cross-instance routing:
+# an agent's socket lands on one instance, queries may hit either, and the
+# non-holder forwards to the holder via the shared Mongo registry.
+#
+#   cd deploy && docker compose up --build
+#   # then point an agent at ws://localhost:8080/ws/agent
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  control-a:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.controlplane
+    restart: unless-stopped
+    environment:
+      TAC_INSTANCE_ID: control-a
+      TAC_INSTANCE_ADDR: http://control-a:8080     # how peers reach THIS instance
+      TAC_MONGO_URI: mongodb://mongo:27017
+      TAC_MONGO_DB: tablearth_connector
+      TAC_ADMIN_TOKEN: ${TAC_ADMIN_TOKEN:-dev-admin-token}
+      TAC_INTERNAL_SECRET: ${TAC_INTERNAL_SECRET:-dev-internal-secret}
+      TAC_PUBLIC_WS_URL: ${TAC_PUBLIC_WS_URL:-ws://localhost:8080/ws/agent}
+    depends_on: [mongo]
+
+  control-b:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.controlplane
+    restart: unless-stopped
+    environment:
+      TAC_INSTANCE_ID: control-b
+      TAC_INSTANCE_ADDR: http://control-b:8080
+      TAC_MONGO_URI: mongodb://mongo:27017
+      TAC_MONGO_DB: tablearth_connector
+      TAC_ADMIN_TOKEN: ${TAC_ADMIN_TOKEN:-dev-admin-token}
+      TAC_INTERNAL_SECRET: ${TAC_INTERNAL_SECRET:-dev-internal-secret}
+      TAC_PUBLIC_WS_URL: ${TAC_PUBLIC_WS_URL:-ws://localhost:8080/ws/agent}
+    depends_on: [mongo]
+
+  lb:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on: [control-a, control-b]
+
+volumes:
+  mongo-data:
