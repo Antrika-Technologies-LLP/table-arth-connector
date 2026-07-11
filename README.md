@@ -6,9 +6,8 @@ database and dials out to TableArth over TLS; queries are pushed down that
 tunnel and only result rows come back. Your database credentials never leave
 your network.
 
-This repo hosts the **prebuilt binaries** and **documentation**. Source code
-lives at
-[Antrika-Technologies-LLP/table-arth-db-connector](https://github.com/Antrika-Technologies-LLP/table-arth-db-connector).
+This repo hosts the **prebuilt binaries** and **documentation** for the TableArth
+database connector.
 
 📖 **Docs:** [Install](docs/INSTALL.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY.md) · [API](docs/API.md)
 
