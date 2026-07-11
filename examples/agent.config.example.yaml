@@ -1,0 +1,60 @@
+# TableArth Connector Agent — example configuration.
+#
+# Everything here stays on THIS host. Each data source's DSN (which contains the
+# database credentials) is NEVER transmitted to TableArth — the agent reports only
+# the logical name + kind of each source. Always point at a READ-ONLY database user.
+
+# The control-plane tunnel endpoint (use wss:// in production).
+server_url: wss://connect.tablearth.com/ws/agent
+
+# One-time bootstrap token from the TableArth console. After the first connect it
+# is exchanged for a durable credential and can be removed.
+enrollment_token: tac_enroll_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Where the durable credential is persisted (0600). Defaults to
+# ~/.table-arth-connector/credentials.json if omitted.
+credentials_path: /var/lib/table-arth-connector/credentials.json
+
+# insecure_tls: false   # dev only — skip TLS verification
+
+# Configure one or more of the databases below (uncomment the ones you use).
+data_sources:
+  # ── PostgreSQL ───────────────────────────────────────────────────────────
+  - name: prod
+    kind: postgres
+    dsn: "postgres://readonly:PASSWORD@10.0.0.5:5432/proddb?sslmode=require"
+
+  # ── Supabase (managed Postgres — use the pooler host) ────────────────────
+  # - name: supabase
+  #   kind: supabase
+  #   dsn: "postgres://readonly.PROJECTREF:PASSWORD@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require"
+
+  # ── MySQL / MariaDB ──────────────────────────────────────────────────────
+  # - name: mysql
+  #   kind: mysql
+  #   dsn: "readonly:PASSWORD@tcp(10.0.0.6:3306)/proddb?tls=preferred&parseTime=true"
+
+  # ── SQL Server ───────────────────────────────────────────────────────────
+  # - name: mssql
+  #   kind: sqlserver
+  #   dsn: "sqlserver://readonly:PASSWORD@10.0.0.7:1433?database=proddb&encrypt=true"
+
+  # ── ClickHouse ───────────────────────────────────────────────────────────
+  # - name: clickhouse
+  #   kind: clickhouse
+  #   dsn: "clickhouse://readonly:PASSWORD@10.0.0.8:9000/proddb?secure=true"
+
+  # ── Snowflake ────────────────────────────────────────────────────────────
+  # - name: snowflake
+  #   kind: snowflake
+  #   dsn: "readonly:PASSWORD@myorg-myacct/PRODDB/PUBLIC?warehouse=COMPUTE_WH&role=READONLY"
+
+  # ── Oracle ───────────────────────────────────────────────────────────────
+  # - name: oracle
+  #   kind: oracle
+  #   dsn: "oracle://readonly:PASSWORD@10.0.0.9:1521/ORCLPDB1"
+
+  # ── SQLite (local files / testing) ───────────────────────────────────────
+  # - name: local
+  #   kind: sqlite
+  #   dsn: "file:/var/data/app.db?mode=ro"
