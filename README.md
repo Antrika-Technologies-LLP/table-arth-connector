@@ -13,7 +13,7 @@ database connector.
 
 ---
 
-## Download the agent (v0.1.1)
+## Download the agent (v0.1.2)
 
 Single static binary, no dependencies. Pick your platform:
 

@@ -54,6 +54,16 @@ data_sources:
   #   kind: oracle
   #   dsn: "oracle://readonly:PASSWORD@10.0.0.9:1521/ORCLPDB1"
 
+  # ── Apache Druid (SQL via the Avatica endpoint) ──────────────────────────
+  # - name: druid
+  #   kind: druid
+  #   dsn: "http://10.0.0.10:8082/druid/v2/sql/avatica/"
+
+  # ── MongoDB (answered via aggregation pipelines, not SQL; URI needs a db) ─
+  # - name: mongo
+  #   kind: mongodb
+  #   dsn: "mongodb://readonly:PASSWORD@10.0.0.11:27017/proddb"
+
   # ── SQLite (local files / testing) ───────────────────────────────────────
   # - name: local
   #   kind: sqlite

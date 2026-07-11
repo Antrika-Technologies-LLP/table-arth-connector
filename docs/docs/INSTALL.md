@@ -158,11 +158,15 @@ DSN — including credentials — never leaves the agent host.
 | `clickhouse` | ClickHouse | `clickhouse://readonly:PASSWORD@host:9000/db?secure=true` |
 | `snowflake` | Snowflake | `readonly:PASSWORD@org-acct/DB/SCHEMA?warehouse=WH&role=READONLY` |
 | `oracle` | Oracle | `oracle://readonly:PASSWORD@host:1521/SERVICE` |
+| `druid` | Apache Druid | `http://broker:8082/druid/v2/sql/avatica/` (Avatica SQL) |
+| `mongodb` | MongoDB | `mongodb://readonly:PASSWORD@host:27017/db` (answered via aggregation, not SQL) |
 | `sqlite` | SQLite (local / testing) | `file:/var/data/app.db?mode=ro` |
 
 A full config showing every database is in
 [examples/agent.config.example.yaml](../examples/agent.config.example.yaml).
-(MongoDB is non-SQL and uses a separate path; BigQuery is not yet in the agent.)
+For MongoDB the URI must include the database (`…/db`) and should point at a
+read-only user; the analyst's questions are answered with aggregation pipelines,
+never raw SQL. (BigQuery is not yet in the agent.)
 
 ## Verifying
 
