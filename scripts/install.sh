@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 # TableArth Connector Agent installer for Linux and macOS.
 #
-#   curl -fsSL https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/bin/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/bin/install.sh | sh
 #
 # Override the download source with RELEASE_BASE, or the install dir with PREFIX.
 set -e
 
-RELEASE_BASE="${RELEASE_BASE:-https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/bin}"
+RELEASE_BASE="${RELEASE_BASE:-https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/bin}"
 PREFIX="${PREFIX:-/usr/local/bin}"
 BIN="tac-agent"
 

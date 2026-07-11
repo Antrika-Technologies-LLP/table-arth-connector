@@ -30,13 +30,13 @@ Verify with [`bin/SHA256SUMS`](bin/SHA256SUMS).
 **macOS / Linux**
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/scripts/install.sh | sh
 ```
 
 **Windows** (PowerShell, as Administrator)
 
 ```powershell
-irm https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/scripts/install.ps1 | iex
 ```
 
 Then create your config and run the agent — full per-OS steps (systemd,

@@ -1,13 +1,13 @@
 # TableArth Connector Agent installer for Windows.
 #
-#   irm https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/scripts/install.ps1 | iex
 #
 # Downloads the agent binary for this machine's architecture and installs it to
 # %ProgramFiles%\table-arth-connector. Run configuration steps from docs/INSTALL.md.
 
 $ErrorActionPreference = 'Stop'
 
-$base = 'https://raw.githubusercontent.com/Antrika-Technologies-LLP/table-arth-connector/main/bin'
+$base = 'https://raw.githubusercontent.com/Antrika-Technologies-LLP/tablearth-connectors/main/bin'
 $arch = if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq 'Arm64') { 'arm64' } else { 'amd64' }
 $url  = "$base/tac-agent-windows-$arch.exe"
 
